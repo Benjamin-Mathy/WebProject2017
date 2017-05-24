@@ -15,16 +15,25 @@ namespace WebProject2017.Controllers
     {
        
         // GET
-        public ActionResult Profil(int id)
+        public ActionResult Profil()
         {
-            EFMapper<User> mapper = new EFMapper<User>("WebProject2017-DBb");
-            mapper.OpenSession();
-            ProfilViewModel vm = new ProfilViewModel()
+            if (((User)Session["User"]) != null)
             {
-                User = mapper.FindBy(id),
-                Journeys = new List<Journey>()            
-            };
-            return View(vm);
+                ProfilViewModel vm;
+                using (EFUserMapper mapper = new EFUserMapper("WebProject2017-DBb"))
+                {
+                    vm = new ProfilViewModel()
+                    {
+                        User = mapper.FindBy(((User)Session["User"]).ID),
+                        Journeys = new List<Journey>()
+                    };
+                }
+                return View(vm);
+            }
+            else
+            {
+                return RedirectToAction("Sign_In_Out");
+            }            
         }
         public ActionResult Sign_In_Out()
         {
@@ -36,16 +45,20 @@ namespace WebProject2017.Controllers
         }
         public ActionResult ProfilEditor()
         {
-            EFUserMapper mapper = new EFUserMapper("WebProject2017-DBb");
-            mapper.OpenSession();
-            User user = mapper.FindBy((int)Session["UserId"]);
+            User user;
+            using (EFUserMapper mapper = new EFUserMapper("WebProject2017-DBb"))
+            {
+                user = mapper.FindBy(((User)Session["User"]).ID);
+            }
             return View(user);
         }
         public ActionResult AddressEditor()
         {
-            EFUserMapper mapper = new EFUserMapper("WebProject2017-DBb");
-            mapper.OpenSession();
-            User user = mapper.FindBy((int)Session["UserId"]);
+            User user;
+            using (EFUserMapper mapper = new EFUserMapper("WebProject2017-DBb"))
+            {
+                user = mapper.FindBy(((User)Session["User"]).ID);
+            }
             return View(user.Address);
         }
 
@@ -53,34 +66,47 @@ namespace WebProject2017.Controllers
         [HttpPost]
         public ActionResult Sign_In_Out(SignInModelView user)
         {
-            EFMapper<User> mapper = new EFMapper<User>("WebProject2017-DBb");
+ 
             if (ModelState.IsValid)
             {
-                mapper.OpenSession();
-                Expression<Func<User, bool>> expression = u => u.Login == user.Login && u.Password == user.Password;
-                User us = mapper.FindBy(expression).First();
-                if (us != null)
+                using (EFUserMapper mapper = new EFUserMapper("WebProject2017-DBb"))
                 {
+                    Expression<Func<User, bool>> expression = u => u.Login == user.Login && u.Password == user.Password;
+                    List<User> uss = mapper.FindBy(expression).ToList<User>();
 
-                    Session.Add("UserId", us.ID);
-                    return RedirectToAction("Profil", new { id = us.ID });
+                    if (uss.Count > 0)
+                    {
+                        User us = uss.First();
+                        Session.Add("User", us);
+                        return RedirectToAction("Profil");
+                    }
+                    else
+                    {
+                        ViewBag.MessageErreur = "idenfiant incorrect";
+                    }
                 }
-                else
-                {
-                    ModelState.AddModelError("idenfiant incorrect", "idenfiant incorrect");
-                }             
             }
             return View();
         }
         [HttpPost]
         public ActionResult Sign_Up(User user)
         {
-            EFMapper<User> mapper = new EFMapper<User>("WebProject2017-DBb");
+            
             if (ModelState.IsValid)
             {
-                user = mapper.AddorUpdate(user);
-                Session.Add("UserId", user.ID);
-                return RedirectToAction("Profil", new { id = user.ID });
+                using (EFUserMapper mapper = new EFUserMapper("WebProject2017-DBb"))
+                {
+                    try
+                    {
+                        user = mapper.AddorUpdate(user);
+                        Session.Add("User", user);
+                        return RedirectToAction("Profil");
+                    }
+                    catch(Exception ex)
+                    {
+                        ViewBag.MessageErreur = ex.Message;
+                    }
+                }
             }
             return View(user);
         }
@@ -99,13 +125,15 @@ namespace WebProject2017.Controllers
         [HttpPost]
         public ActionResult ProfilEditor(User user)
         {
-            EFMapper<User> mapper = new EFMapper<User>("WebProject2017-DBb");
+            
             if (ModelState.IsValid)
             {
-                user.ID = (int)Session["UserId"];
-                mapper.AddorUpdate(user);
-                mapper.Save();
-                return RedirectToAction("Profil", new { id = (long)Session["UserId"]});
+                using (EFUserMapper mapper = new EFUserMapper("WebProject2017-DBb"))
+                {
+                    user.ID = (int)Session["UserId"];
+                    mapper.AddorUpdate(user);
+                    return RedirectToAction("Profil");
+                }
             }
             return View(user);
         }

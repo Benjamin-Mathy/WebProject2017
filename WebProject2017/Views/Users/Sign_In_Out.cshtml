@@ -6,6 +6,7 @@
 <h3>Connexion</h3>
 @using (Html.BeginForm("Sign_In_Out", "Users", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
 {
+    <span style="color:red">@ViewBag.MessageErreur</span>
     <div class="groupForm col-">
         <label class="labelForm">Login : </label>
         @Html.EditorFor(model => model.Login)

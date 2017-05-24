@@ -13,12 +13,16 @@ namespace WebProject2017Server.Modèle
         [Required(AllowEmptyStrings = false, ErrorMessage = "La description est obligatoire")]
         public string Description { get; set; }
         public int FreeSeat { get; set; }
+        [DataType(DataType.Currency)]
+        public float Price { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "L'heure de départ est invalide")]
         [DataType(DataType.DateTime)]
         public DateTime StartingDateTime { get; set; }
         [Required(AllowEmptyStrings =false ,ErrorMessage ="L'heure d'arrivée est invalide")]
         [DataType(DataType.DateTime)]
         public DateTime DriverUpDatetime { get; set; }
+
+        //public int DriverID { get; set; }
 
         public virtual User Driver { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "L'adresse de départ est invalide")]

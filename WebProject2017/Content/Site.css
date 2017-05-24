@@ -142,6 +142,9 @@ li{
 .nbrSeat{
     float: right;
 }
+.price{
+    float: left;
+}
 form{
     text-align:center;
 }

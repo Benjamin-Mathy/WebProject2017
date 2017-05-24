@@ -1,24 +1,80 @@
-﻿
+﻿@model WebProject2017Server.Modèle.Journey
+
 @{
     ViewBag.Title = "AddJourney";
 }
+<h2>Ajouté Trajet</h2>
 
-<h2>AddJourney</h2>
-
-<form>
-    <div class="groupForm AddJForm">
+@using (Html.BeginForm("AddJourney", "Journey", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+{
+    @Html.ValidationSummary()
+    <div class="groupForm col-">
+        <label class="labelForm">Description : </label>
+        @Html.EditorFor(model => model.Description)
+    </div>
+    <div class="groupForm col-">
+        <label class="labelForm">Nombre de place(s) Disponible(S) : </label>
+        @Html.EditorFor(model => model.FreeSeat)
+    </div>
+    <div class="groupForm col-">
+        <label class="labelForm">Prix par siège : </label>
+        @Html.EditorFor(model => model.Price, new { type = "number", min = "0", step = "0.01" })
+    </div>
+    <div class="groupForm col-">
         <label class="labelForm">Départ : </label>
-        <input type="search" name="JourneyStart" />
+        @Html.EditorFor(model => model.StartingDateTime, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })
     </div>
-    <div class="groupForm AddJForm">
+    <div class="groupForm col-">
         <label class="labelForm">Arrivé : </label>
-        <input type="search" name="JourneyArrival" />
+        @Html.EditorFor(model => model.DriverUpDatetime, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })
     </div>
-    <div class="groupForm AddJForm">
-        <input class="labelForm" type="button" id="StartArrivalDate" value="Départ" onclick="changeValue('Départ','Arrivée')" />
-        <input type="datetime-local" name="JourneyDate" />
+    <div class="col-6">
+        <h3>Address de Départ</h3>
+        <div class="groupForm col-">
+            <label class="labelForm">Pays : </label>
+            @Html.EditorFor(model => model.StartingAddress.Country)
+        </div>
+        <div class="groupForm col-">
+            <label class="labelForm">Localité : </label>
+            @Html.EditorFor(model => model.StartingAddress.Locality)
+        </div>
+        <div class="groupForm col-">
+            <label class="labelForm">Code Postal : </label>
+            @Html.EditorFor(model => model.StartingAddress.PostalCode)
+        </div>
+        <div class="groupForm col-">
+            <label class="labelForm">Rue : </label>
+            @Html.EditorFor(model => model.StartingAddress.Road)
+        </div>
+        <div class="groupForm col-">
+            <label class="labelForm">Numéro : </label>
+            @Html.EditorFor(model => model.StartingAddress.Number)
+        </div>
+    </div>
+    <div class="col-6">
+        <h3>Address d'arrivé</h3>
+        <div class="groupForm col-">
+            <label class="labelForm">Pays : </label>
+            @Html.EditorFor(model => model.DriverUpAddress.Country)
+        </div>
+        <div class="groupForm col-">
+            <label class="labelForm">Localité : </label>
+            @Html.EditorFor(model => model.DriverUpAddress.Locality)
+        </div>
+        <div class="groupForm col-">
+            <label class="labelForm">Code Postal : </label>
+            @Html.EditorFor(model => model.DriverUpAddress.PostalCode)
+        </div>
+        <div class="groupForm col-">
+            <label class="labelForm">Rue : </label>
+            @Html.EditorFor(model => model.DriverUpAddress.Road)
+        </div>
+        <div class="groupForm col-">
+            <label class="labelForm">Numéro : </label>
+            @Html.EditorFor(model => model.DriverUpAddress.Number)
+        </div>
     </div>
     <div class="groupForm">
-        <input type="submit" id="SendSearch" value="Recherche" />
+        <input class="btn col-" type="submit" id="SendSearch" value="Valider" />
     </div>
-</form>
+}

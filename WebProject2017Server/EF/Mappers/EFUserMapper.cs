@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
@@ -22,11 +23,7 @@ namespace WebProject2017Server.EF.Mappers
                 foreach (User entity in entitys)
                 {
                     if (entity != null && entity != new User())
-                    {
-                        if (loginAlreadyExisting(entity) || EmailAlreadyExisting(entity))
-                        {
-                            return entitys;
-                        }                  
+                    {                                         
                         if (entity.Address !=null && null != context.Addresses.Find(entity.Address.ID))
                         {
                             entity.Address = context.Addresses.Find(entity.Address.ID);
@@ -37,9 +34,23 @@ namespace WebProject2017Server.EF.Mappers
                         }
                         else
                         {
-                            context.Entry<User>(entity).CurrentValues.SetValues(entity);
+                            context.Users.AddOrUpdate(entity);
                         }
-                        context.SaveChanges();
+                        try
+                        {
+                            context.SaveChanges();
+                        }
+                        catch(Exception ex)
+                        {
+                            if (loginAlreadyExisting(entity))
+                            {
+                                throw new ArgumentException("Ce login (" + entity.Login+ ")  est déjà utiliser pour un autre compte", ex);
+                            }
+                            else if (EmailAlreadyExisting(entity))
+                            {
+                                throw new ArgumentException("Cette adresse email ("+entity.Email+") est déjà utiliser pour un autre compte", ex);
+                            }
+                        }
                     }
                     else
                     {
@@ -48,8 +59,8 @@ namespace WebProject2017Server.EF.Mappers
                 }
             }
             catch (Exception ex)
-            {
-                throw new ArgumentException(ex.Message, ex);
+            {                
+                throw new DbEntityValidationException(ex.Message, ex);
             }
             return entitys;
         }
@@ -59,10 +70,6 @@ namespace WebProject2017Server.EF.Mappers
             {
                 if (entity != null && entity != new User())
                 {
-                    if (loginAlreadyExisting(entity) || EmailAlreadyExisting(entity))
-                    {
-                        return entity;
-                    }
                     context.Users.Load();
                     context.Addresses.Load();
                     if (entity.Address != null && null != context.Addresses.Find(entity.Address.ID))
@@ -75,19 +82,27 @@ namespace WebProject2017Server.EF.Mappers
                     }
                     else
                     {
-                        context.Entry<User>(entity).CurrentValues.SetValues(entity);
+                        context.Users.AddOrUpdate(entity);
                     }
                 }
                 else
                 {
                     throw new DbEntityValidationException("entity empty");
                 }
+                context.SaveChanges();
             }
             catch (Exception ex)
             {
-                throw new ArgumentException(ex.Message, ex);
-            }
-            context.SaveChanges();
+                if (loginAlreadyExisting(entity))
+                {
+                    throw new ArgumentException("Ce login (" + entity.Login + ")  est déjà utiliser pour un autre compte", ex);
+                }
+                else if (EmailAlreadyExisting(entity))
+                {
+                    throw new ArgumentException("Cette adresse email (" + entity.Email + ") est déjà utiliser pour un autre compte", ex);
+                }
+                throw new DbEntityValidationException(ex.Message, ex);
+            }            
             return entity;
         }
         public Boolean loginAlreadyExisting(User entity)

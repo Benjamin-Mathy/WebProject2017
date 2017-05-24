@@ -128,5 +128,25 @@ namespace WebProject2017Server.EF.Mappers
             context.SaveChanges();
             return entity;
         }
+        new public List<Journey> GetAll()
+        {
+            try
+            {
+                context.Set<Journey>().Load();
+                List<Journey> list = context.Set<Journey>().ToList<Journey>();
+                foreach(Journey j in list)
+                {
+                    j.StartingAddress = new Address(j.StartingAddress);
+                    j.DriverUpAddress = new Address(j.DriverUpAddress);
+                    j.Driver = new User(j.Driver);
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message, ex);
+            }
+        }
     }
 }

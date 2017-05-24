@@ -6,6 +6,8 @@
 
 @using (Html.BeginForm("Sign_Up", "Users", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
 {
+    <span style="color:red">@ViewBag.MessageErreur</span>
+
     @Html.Partial("_UserForm", @Model)
     <div class="groupForm col-">
         <input class="btn col-" type="submit" id="SendSearch" value="Valider"/>

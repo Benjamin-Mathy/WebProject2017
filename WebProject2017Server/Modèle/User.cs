@@ -40,6 +40,16 @@ namespace WebProject2017Server.Modèle
         {
 
         }
+        public User(User user)
+        {
+            this.ID = user.ID;
+            this.Login = user.Login;
+            this.Password = user.Password;
+            this.Phone = user.Phone;
+            this.Email = user.Email;
+            this.Rank = user.Rank;
+            this.Address = user.Address;
+        }
         public User(string login, string password, string phone, string email, UserRank rank, Address userAddress)
         {
             this.Login = login;

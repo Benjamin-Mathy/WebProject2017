@@ -5,7 +5,7 @@
 
 <section class="col-">
     <h4>Mes trajets</h4>
-    <input class="btn col-" type="submit" id="SendSearch" value="Ajouter un trajet" />
+    <input class="btn col-" type="submit" id="AddJ" value="Ajouter un trajet" onclick="location.href='@Url.Action("AddJourney","Journey")'"/>
 
     @foreach (var journey in @Model.Journeys)
     {
@@ -58,23 +58,27 @@
     @using (Html.BeginForm("Profila", "Users", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
     {
         <h4>Mon Adresse</h4>
-        if (Model.User.UserAddress != null)
+        if (Model.User.Address != null)
         {
         <div class="groupForm col-">
+            <label class="labelForm">Pays : </label>
+            <label>@Model.User.Address.Country</label>
+        </div>
+        <div class="groupForm col-">
             <label class="labelForm">Localiter : </label>
-            <label>@Model.User.UserAddress.Locality</label>
+            <label>@Model.User.Address.Locality</label>
         </div>
         <div class="groupForm col-">
             <label class="labelForm">Code Postal : </label>
-            <label>@Model.User.UserAddress.PostalCode</label>
+            <label>@Model.User.Address.PostalCode</label>
         </div>
         <div class="groupForm col-">
             <label class="labelForm">Rue : </label>
-            <label>@Model.User.UserAddress.Road</label>
+            <label>@Model.User.Address.Road</label>
         </div>
         <div class="groupForm col-">
             <label class="labelForm">Numero : </label>
-            <label>@Model.User.UserAddress.Number</label>
+            <label>@Model.User.Address.Number</label>
         </div>        
         <div class="groupForm col-">
             <input class="btn btn-bis col-" type="submit" id="SendSearch" value="Modifer adresse" />

@@ -23,6 +23,15 @@ namespace WebProject2017Server.Modèle
         {
 
         }
+        public Address(Address address)
+        {
+            this.ID = address.ID;
+            this.Country = address.Country;
+            this.Locality = address.Locality;
+            this.PostalCode = address.PostalCode;
+            this.Road = address.Road;
+            this.Number = address.Number;
+        }
         public Address(string country, string locality,string postalCode, string road, string number)
         {
             this.Country = country;

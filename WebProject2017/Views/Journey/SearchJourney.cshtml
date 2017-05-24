@@ -1,4 +1,4 @@
-﻿
+﻿@model WebProject2017.Models.SearchJourneyViewModel
 @{
     ViewBag.Title = "JourneySearch";
 }
@@ -26,62 +26,41 @@
     </form>
     <div>
         <h5>Résultats :</h5>
-        <div class="journey col-6 col-m-12">
-            <label id="Strat">DXXXXX_MM:HH</label>
-            <span>--></span>
-            <label id="Arrival">AXXXXXX_MM:HH</label>
-            <label class="nbrSeat" id="nbrSeat">X place(s)</label>
-        </div>
-        <div class="journey col-6 col-m-12">
-            <label id="Strat">DXXXXX_MM:HH</label>
-            <span>--></span>
-            <label id="Arrival">AXXXXXX_MM:HH</label>
-            <label class="nbrSeat" id="nbrSeat">X place(s)</label>
-        </div>
-        <div class="journey col-6 col-m-12">
-            <label id="Strat">DXXXXX_MM:HH</label>
-            <span>--></span>
-            <label id="Arrival">AXXXXXX_MM:HH</label>
-            <label class="nbrSeat" id="nbrSeat">X place(s)</label>
-        </div>
-        <div class="journey col-6 col-m-12">
-            <label id="Strat">DXXXXX_MM:HH</label>
-            <span>--></span>
-            <label id="Arrival">AXXXXXX_MM:HH</label>
-            <label class="nbrSeat" id="nbrSeat">X place(s)</label>
-        </div>
-        <div class="journey col-6 col-m-12">
-            <label id="Strat">DXXXXX_MM:HH</label>
-            <span>--></span>
-            <label id="Arrival">AXXXXXX_MM:HH</label>
-            <label class="nbrSeat" id="nbrSeat">X place(s)</label>
-        </div>
-        <div class="journey col-6 col-m-12">
-            <label id="Strat">DXXXXX_MM:HH</label>
-            <span>--></span>
-            <label id="Arrival">AXXXXXX_MM:HH</label>
-            <label class="nbrSeat" id="nbrSeat">X place(s)</label>
-        </div>
+        @foreach (var item in Model.Result)
+        {
+            using (Html.BeginForm("Profil", "Journey", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+            {
+                <div class="journey col-6 col-m-12">
+                    <label class="col-6 col-m-12" id="Start">Départ : @item.StartingDateTime : @item.StartingAddress.Locality</label>
+                    <span>--></span>
+                    <label class="col-6 col-m-12" id="Arrival">Arrivé : @item.DriverUpDatetime : @item.DriverUpAddress.Locality</label>
+                    <label class="nbrSeat" id="nbrSeat">@item.FreeSeat place(s)</label>
+                    <label class="price" id="nbrSeat">@item.Price €</label>
+                    <input class="btn btn-bis col-" type="submit" id="SendSearch" value="Voyager" />
+                </div>
+            }
+        }
+
     </div>
 </section>
 <section class="col-6 col-m-4">
     <h4>Mes trajets</h4>
-    <input class="btn col-" type="submit" id="SendSearch" value="Ajouter un trajet" />
+    <input class="btn col-" type="submit" id="SendSearch" value="Ajouter un trajet" onclick="location.href='@Url.Action("AddJourney","Journey")'" />
       
-    <div class="journey col-6 col-m-12">
-        <label id="Strat">DXXXXX_MM:HH</label>
-        <span>--></span>
-        <label id="Arrival">AXXXXXX_MM:HH</label>
-        <label class="nbrSeat" id="nbrSeat">X place(s)</label>
-        <input class="btn btn-bis col-" type="submit" id="SendSearch" value="Annuler" />
-    </div>
-    <div class="journey col-6 col-m-12">
-        <label id="Strat">DXXXXX_MM:HH</label>
-        <span>--></span>
-        <label id="Arrival">AXXXXXX_MM:HH</label>
-        <label class="nbrSeat" id="nbrSeat">X place(s)</label>
-        <input class="btn btn-bis col-" type="submit" id="SendSearch" value="Editer" />
-    </div>
+    @foreach (var item in Model.JourneysUser)
+    {
+        using (Html.BeginForm("Profil", "Journey", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+        {
+            <div class="journey col-6 col-m-12">
+                <label class="col-6 col-m-12" id="Start">Départ : @item.StartingDateTime : @item.StartingAddress.Locality</label>
+                <span>--></span>
+                <label class="col-6 col-m-12" id="Arrival">Arrivé : @item.DriverUpDatetime : @item.DriverUpAddress.Locality</label>
+                <label class="nbrSeat" id="nbrSeat">@item.FreeSeat place(s)</label>
+                <label class="price" id="nbrSeat">@item.Price €</label>
+                <input class="btn btn-bis col-" type="submit" id="SendSearch" value="Editer" />
+            </div>
+        }
+    }
 </section>
 
 
