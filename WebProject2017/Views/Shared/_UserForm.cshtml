@@ -1,0 +1,27 @@
+﻿@model WebProject2017Server.Modèle.User
+
+@Html.ValidationSummary()
+<div class="groupForm col-">
+    <label class="labelForm">Login : </label>
+    @Html.EditorFor(model => model.Login)
+</div>
+<div class="groupForm col-">
+    <label class="labelForm">Mot de passe : </label>
+    @Html.EditorFor(model => model.Password)
+</div>
+<div class="groupForm col-">
+    <label class="labelForm">Nom : </label>
+    @Html.EditorFor(model => model.LastName)
+</div>
+<div class="groupForm col-">
+    <label class="labelForm">Prénom : </label>
+    @Html.EditorFor(model => model.Name)
+</div>
+<div class="groupForm col-">
+    <label class="labelForm">téléphone : </label>
+    @Html.EditorFor(model => model.Phone)
+</div>
+<div class="groupForm col-">
+    <label class="labelForm">Email : </label>
+    @Html.EditorFor(model => model.Email)
+</div>

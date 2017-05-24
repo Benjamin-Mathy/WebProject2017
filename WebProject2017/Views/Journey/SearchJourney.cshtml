@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "JourneySearch";
+}
+
+<h3>Trajet</h3>
+
+<section class="col-6 col-m-8">
+    <h4>Recherche</h4>
+    <form>
+        <div class="groupForm">
+            <label class="labelForm">Départ : </label>
+            <input type="search" name="JourneyStart" />
+        </div>
+        <div class="groupForm">
+            <label class="labelForm">Arrivé : </label>
+            <input type="search" name="JourneyArrival" />
+        </div>
+        <div class="groupForm">
+            <input class="btn" type="button" id="StartArrivalDate" value="Départ" onclick="changeValue('Départ','Arrivée')" />
+            <input type="datetime-local" name="JourneyDate" />
+        </div>
+        <div class="groupForm col-">
+            <input class="btn col-" type="submit" id="SendSearch" value="Recherche" />
+        </div>
+    </form>
+    <div>
+        <h5>Résultats :</h5>
+        <div class="journey col-6 col-m-12">
+            <label id="Strat">DXXXXX_MM:HH</label>
+            <span>--></span>
+            <label id="Arrival">AXXXXXX_MM:HH</label>
+            <label class="nbrSeat" id="nbrSeat">X place(s)</label>
+        </div>
+        <div class="journey col-6 col-m-12">
+            <label id="Strat">DXXXXX_MM:HH</label>
+            <span>--></span>
+            <label id="Arrival">AXXXXXX_MM:HH</label>
+            <label class="nbrSeat" id="nbrSeat">X place(s)</label>
+        </div>
+        <div class="journey col-6 col-m-12">
+            <label id="Strat">DXXXXX_MM:HH</label>
+            <span>--></span>
+            <label id="Arrival">AXXXXXX_MM:HH</label>
+            <label class="nbrSeat" id="nbrSeat">X place(s)</label>
+        </div>
+        <div class="journey col-6 col-m-12">
+            <label id="Strat">DXXXXX_MM:HH</label>
+            <span>--></span>
+            <label id="Arrival">AXXXXXX_MM:HH</label>
+            <label class="nbrSeat" id="nbrSeat">X place(s)</label>
+        </div>
+        <div class="journey col-6 col-m-12">
+            <label id="Strat">DXXXXX_MM:HH</label>
+            <span>--></span>
+            <label id="Arrival">AXXXXXX_MM:HH</label>
+            <label class="nbrSeat" id="nbrSeat">X place(s)</label>
+        </div>
+        <div class="journey col-6 col-m-12">
+            <label id="Strat">DXXXXX_MM:HH</label>
+            <span>--></span>
+            <label id="Arrival">AXXXXXX_MM:HH</label>
+            <label class="nbrSeat" id="nbrSeat">X place(s)</label>
+        </div>
+    </div>
+</section>
+<section class="col-6 col-m-4">
+    <h4>Mes trajets</h4>
+    <input class="btn col-" type="submit" id="SendSearch" value="Ajouter un trajet" />
+      
+    <div class="journey col-6 col-m-12">
+        <label id="Strat">DXXXXX_MM:HH</label>
+        <span>--></span>
+        <label id="Arrival">AXXXXXX_MM:HH</label>
+        <label class="nbrSeat" id="nbrSeat">X place(s)</label>
+        <input class="btn btn-bis col-" type="submit" id="SendSearch" value="Annuler" />
+    </div>
+    <div class="journey col-6 col-m-12">
+        <label id="Strat">DXXXXX_MM:HH</label>
+        <span>--></span>
+        <label id="Arrival">AXXXXXX_MM:HH</label>
+        <label class="nbrSeat" id="nbrSeat">X place(s)</label>
+        <input class="btn btn-bis col-" type="submit" id="SendSearch" value="Editer" />
+    </div>
+</section>
+
+
+
+
+
+
+
+
+

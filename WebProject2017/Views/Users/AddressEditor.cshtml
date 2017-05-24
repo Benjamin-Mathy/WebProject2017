@@ -1,0 +1,30 @@
+﻿@model WebProject2017Server.Modèle.Address
+@{
+    ViewBag.Title = "AddressEditor";
+}
+
+<h2>AddressEditor</h2>
+@using (Html.BeginForm("AddressEditor", "Users", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+{
+    @Html.ValidationSummary()
+    <div class="groupForm col-">
+        <label class="labelForm">Localitier : </label>
+        @Html.EditorFor(model => model.Locality)
+    </div>
+    <div class="groupForm col-">
+        <label class="labelForm">Code Postal : </label>
+        @Html.EditorFor(model => model.PostalCode)
+    </div>
+    <div class="groupForm col-">
+        <label class="labelForm">Rue : </label>
+        @Html.EditorFor(model => model.Road)
+    </div>
+    <div class="groupForm col-">
+        <label class="labelForm">Numéro : </label>
+        @Html.EditorFor(model => model.Number)
+    </div>
+    <div class="groupForm col-">
+        <input class="btn col-" type="submit" id="SendSearch" value="Valider" />
+    </div>
+}
+

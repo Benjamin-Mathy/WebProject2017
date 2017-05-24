@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/Script.js"></script>  
+</head>
+<body>
+    <header>
+        
+        <h1>GoCars</h1>
+        <div class=" banner" ></div>
+        <nav>
+            <ul>
+                <li class="col-3 col-m-6"><input class="btnMenu" type="button" value="Accueil" onclick="location.href='@Url.Action("Welcome","Home")'" /></li>
+                <li class="col-3 col-m-6"><input class="btnMenu" type="button" value="Coin Perso" onclick="location.href='@Url.Action("Profil","Users")'" /></li>
+                <li class="col-3 col-m-6"><input class="btnMenu" type="button" value="Trajet" onclick="location.href='@Url.Action("SearchJourney","Journey")'" /></li>
+                <li class="col-3 col-m-6"><input class="btnMenu" type="button" value="Connexion" onclick="location.href='@Url.Action("Sign_In_Out","Users")'" /></li>
+               
+            </ul>
+        </nav>
+    </header>
+    
+    @RenderBody()
+    
+</body>
+</html>

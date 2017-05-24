@@ -1,0 +1,26 @@
+﻿@model WebProject2017.Models.SignInModelView
+@{
+    ViewBag.Title = "Sign_In_Out";
+}
+
+<h3>Connexion</h3>
+@using (Html.BeginForm("Sign_In_Out", "Users", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+{
+    <div class="groupForm col-">
+        <label class="labelForm">Login : </label>
+        @Html.EditorFor(model => model.Login)
+    </div>
+    <div class="groupForm col-">
+        <label class="labelForm">Mot de passe : </label>
+        @Html.EditorFor(model => model.Password)
+    </div>
+    <div class="groupForm col-">
+        <input class="btn col-" type="submit" id="SendSearch" value="Connexion" />
+    </div>
+    <p><br/>Pas encore de compte ? @Html.ActionLink("Inscivez-vous !!!", "Sign_Up", "Users")</p>
+
+}
+
+
+
+

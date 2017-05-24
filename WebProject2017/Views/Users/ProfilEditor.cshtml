@@ -1,0 +1,14 @@
+﻿@model WebProject2017Server.Modèle.User
+@{
+    ViewBag.Title = "ProfilEditor";
+}
+
+<h3>ProfilEditor</h3>
+@using (Html.BeginForm("ProfilEditor", "Users", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+{
+    @Html.Partial("_UserForm", @Model)
+    <div class="groupForm col-">
+        <input class="btn col-" type="submit" id="SendSearch" value="Valider"/>
+    </div>
+}
+

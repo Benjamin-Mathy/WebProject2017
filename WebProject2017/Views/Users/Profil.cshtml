@@ -1,0 +1,93 @@
+﻿@model WebProject2017.Models.ProfilViewModel
+@{
+    ViewBag.Title = "Profil";
+}
+
+<section class="col-">
+    <h4>Mes trajets</h4>
+    <input class="btn col-" type="submit" id="SendSearch" value="Ajouter un trajet" />
+
+    @foreach (var journey in @Model.Journeys)
+    {
+        <div class="journey col-6 col-m-12">
+            <label id="Strat">@journey.StartingAddress _ @journey.StartingDateTime</label>
+            <span>--></span>
+            <label id="Arrival">@journey.DriverUpAddress _ @journey.DriverUpDatetime</label>
+            <label class="nbrSeat" id="nbrSeat">X places</label>
+            <input class="btn btn-bis col-" type="submit" id="SendSearch" value="Annuler" />
+        </div>
+    }
+    <div class="journey col-6 col-m-12">
+        <label id="Strat">DXXXXX_MM:HH</label>
+        <span>--></span>
+        <label id="Arrival">AXXXXXX_MM:HH</label>
+        <label class="nbrSeat" id="nbrSeat">X place(s)</label>
+        <input class="btn btn-bis col-" type="submit" id="SendSearch" value="Editer" />
+    </div>
+</section>
+<section class="col-">
+@using (Html.BeginForm("Profil", "Users", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+{
+    <h4>Mes Informations</h4>
+
+    <div class="groupForm col-">
+        <label class="labelForm">Login : </label>
+        <label>@Model.User.Login</label>
+    </div>
+    <div class="groupForm col-">
+        <label class="labelForm">Nom : </label>
+        <label>@Model.User.LastName</label>
+    </div>
+    <div class="groupForm col-">
+        <label class="labelForm">Prénom : </label>
+        <label>@Model.User.Name</label>
+    </div>
+    <div class="groupForm col-">
+        <label class="labelForm">téléphone : </label>
+        <label>@Model.User.Phone</label>
+    </div>
+    <div class="groupForm col-">
+        <label class="labelForm">Email : </label>
+        <label>@Model.User.Email</label>
+    </div>
+    <div class="groupForm col-">        
+        <input class="btn btn-bis col-" type="submit" id="SendSearch" value="Modifier"/>        
+    </div>
+
+}
+    @using (Html.BeginForm("Profila", "Users", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+    {
+        <h4>Mon Adresse</h4>
+        if (Model.User.UserAddress != null)
+        {
+        <div class="groupForm col-">
+            <label class="labelForm">Localiter : </label>
+            <label>@Model.User.UserAddress.Locality</label>
+        </div>
+        <div class="groupForm col-">
+            <label class="labelForm">Code Postal : </label>
+            <label>@Model.User.UserAddress.PostalCode</label>
+        </div>
+        <div class="groupForm col-">
+            <label class="labelForm">Rue : </label>
+            <label>@Model.User.UserAddress.Road</label>
+        </div>
+        <div class="groupForm col-">
+            <label class="labelForm">Numero : </label>
+            <label>@Model.User.UserAddress.Number</label>
+        </div>        
+        <div class="groupForm col-">
+            <input class="btn btn-bis col-" type="submit" id="SendSearch" value="Modifer adresse" />
+        </div>
+        }
+        else
+        {
+            <div class="groupForm col-">
+                <label class="labelForm">Pas d'adresse enregistrée</label>
+            </div>
+        }
+
+    }
+</section>
+
+

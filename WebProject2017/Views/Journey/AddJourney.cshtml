@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "AddJourney";
+}
+
+<h2>AddJourney</h2>
+
+<form>
+    <div class="groupForm AddJForm">
+        <label class="labelForm">Départ : </label>
+        <input type="search" name="JourneyStart" />
+    </div>
+    <div class="groupForm AddJForm">
+        <label class="labelForm">Arrivé : </label>
+        <input type="search" name="JourneyArrival" />
+    </div>
+    <div class="groupForm AddJForm">
+        <input class="labelForm" type="button" id="StartArrivalDate" value="Départ" onclick="changeValue('Départ','Arrivée')" />
+        <input type="datetime-local" name="JourneyDate" />
+    </div>
+    <div class="groupForm">
+        <input type="submit" id="SendSearch" value="Recherche" />
+    </div>
+</form>

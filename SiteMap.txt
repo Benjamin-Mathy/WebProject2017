@@ -1,0 +1,12 @@
+GoCars:
+-Home
+- - Welcome
+-User
+- - Sign up -> User Page
+- - Sign in/out -> Previous Page/Home
+- - Display
+-Journey
+- - Add
+- - Edit
+- - Check (Accept)
+- - Search
